@@ -4,12 +4,9 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     rust-overlay = { url = "github:oxalica/rust-overlay"; };
   };
-  outputs = { self, nixpkgs, rust-overlay, ... }:
+  outputs = { nixpkgs, rust-overlay, ... }:
     let
       system = "x86_64-linux";
-      supportedSystems = [ "x86_64-linux" ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      pkgsFor = nixpkgs.legacyPackages;
     in {
       packages.${system}.default =
         let pkgs = import nixpkgs { inherit system; };
@@ -35,12 +32,6 @@
             shellHook = ''
             export PKG_CONFIG_PATH=${pkgs.lib.concatStrings ["${pkgs.libudev-zero}" "/lib/pkgconfig"]}
             '';
-            # env = [
-            #   {
-            #     name = "PKG_CONFIG_PATH";
-            #     value = nixpkgs.lib.concatStrings ["${nixpkgs.libudev-zero}" "/lib/pkgconfig"];
-            #   }
-            # ];
           };
     };
 }
