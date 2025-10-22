@@ -1,5 +1,5 @@
 [package]
-name = "bloorm"
+name = "bloomrs"
 version = "0.1.0"
 edition = "2021"
 
